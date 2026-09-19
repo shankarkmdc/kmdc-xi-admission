@@ -7,10 +7,10 @@ import { saveAs } from 'file-saver';
 const STORAGE_KEYS = {
   ELIGIBLE_STUDENTS: 'kmdc_eligible_students_v1',
   APPLICATIONS: 'kmdc_applications_v1',
-  ADMIN_PASSWORD: 'kmdc_admin_pwd_v1',
+  ADMIN_PASSWORD: 'kmdc_admin_pwd_v2',
 };
 
-const DEFAULT_ADMIN_PASSWORD = 'kmdc@admin2026';
+export const DEFAULT_ADMIN_PASSWORD = 'kmdc@admin2026';
 
 // Initialize Eligible Students
 export function getEligibleStudents(): EligibleStudent[] {
@@ -93,6 +93,10 @@ export function getAdminPassword(): string {
 
 export function setAdminPassword(password: string): void {
   localStorage.setItem(STORAGE_KEYS.ADMIN_PASSWORD, password);
+}
+
+export function resetAdminPassword(): void {
+  localStorage.removeItem(STORAGE_KEYS.ADMIN_PASSWORD);
 }
 
 // Export Applications to Excel or CSV

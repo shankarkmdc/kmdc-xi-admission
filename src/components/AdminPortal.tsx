@@ -3,6 +3,7 @@ import { AdmissionApplication, EligibleStudent, StudyGroup } from '../types';
 import {
   getAdminPassword,
   setAdminPassword,
+  resetAdminPassword,
   getApplications,
   saveApplications,
   getEligibleStudents,
@@ -99,7 +100,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onViewApplication }) =
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const correctPassword = getAdminPassword();
-    if (enteredPassword === correctPassword || enteredPassword === 'kmdc@admin2026') {
+    if (enteredPassword.trim() === correctPassword.trim()) {
       setIsAuthenticated(true);
       setAuthError(null);
       refreshData();
@@ -504,16 +505,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onViewApplication }) =
             </button>
           </form>
 
-          {/* Quick Demo Hint */}
-          <div className="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 text-center">
-            <span>ডিফল্ট এডমিন পাসওয়ার্ড: </span>
-            <button
-              type="button"
-              onClick={() => setEnteredPassword('kmdc@admin2026')}
-              className="font-mono font-bold text-emerald-700 hover:underline cursor-pointer ml-1"
-            >
-              kmdc@admin2026
-            </button>
+          {/* Secure Admin Portal Notice (Password hidden) */}
+          <div className="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400 text-center flex items-center justify-center gap-1.5">
+            <Lock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span>শুধুমাত্র অনুমোদিত কলেজ প্রশাসনের ব্যবহারের জন্য সংরক্ষিত</span>
           </div>
         </div>
       </div>
@@ -1137,12 +1132,26 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onViewApplication }) =
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-sm transition"
-              >
-                পাসওয়ার্ড সংরক্ষণ করুন
-              </button>
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-sm transition"
+                >
+                  পাসওয়ার্ড সংরক্ষণ করুন
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    resetAdminPassword();
+                    setPasswordChangeSuccess(true);
+                    setNewPasswordInput('');
+                    setTimeout(() => setPasswordChangeSuccess(false), 3000);
+                  }}
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition"
+                >
+                  মূল পাসওয়ার্ডে (kmdc@admin2026) রিসেট করুন
+                </button>
+              </div>
             </form>
           </div>
 
