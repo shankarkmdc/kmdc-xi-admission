@@ -45,11 +45,6 @@ export const StudentSearch: React.FC<StudentSearchProps> = ({
     setApplication(existingApp || null);
   };
 
-  const handleQuickDemoClick = (roll: string) => {
-    setRollInput(roll);
-    handleSearch(roll);
-  };
-
   return (
     <div className="max-w-3xl mx-auto py-8 px-4">
       {/* Search Card */}
@@ -112,19 +107,10 @@ export const StudentSearch: React.FC<StudentSearchProps> = ({
           </button>
         </form>
 
-        {/* Quick Demo Roll helper */}
-        <div className="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
-          <span className="font-semibold text-slate-700">দ্রুত পরীক্ষার নমুনা রোল:</span>
-          {eligibleList.slice(0, 3).map((el) => (
-            <button
-              key={el.id}
-              type="button"
-              onClick={() => handleQuickDemoClick(el.sscRoll)}
-              className="px-2.5 py-1 bg-slate-100 hover:bg-emerald-100 hover:text-emerald-900 rounded-md font-mono text-xs font-bold transition border border-slate-200"
-            >
-              {el.sscRoll} ({el.group.slice(0, 3)})
-            </button>
-          ))}
+        {/* Total Eligible Students Indicator */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-xs text-slate-500">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span>কসবা মহিলা ডিগ্রি কলেজ একাদশ শ্রেণি ভর্তিযোগ্য শিক্ষার্থী: <strong className="text-emerald-700 font-bold">{eligibleList.length} জন</strong></span>
         </div>
       </div>
 

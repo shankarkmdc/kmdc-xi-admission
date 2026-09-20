@@ -5,7 +5,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
 const STORAGE_KEYS = {
-  ELIGIBLE_STUDENTS: 'kmdc_eligible_students_v1',
+  ELIGIBLE_STUDENTS: 'kmdc_eligible_students_v2',
   APPLICATIONS: 'kmdc_applications_v1',
   ADMIN_PASSWORD: 'kmdc_admin_pwd_v2',
 };
@@ -20,7 +20,13 @@ export function getEligibleStudents(): EligibleStudent[] {
       localStorage.setItem(STORAGE_KEYS.ELIGIBLE_STUDENTS, JSON.stringify(INITIAL_ELIGIBLE_STUDENTS));
       return INITIAL_ELIGIBLE_STUDENTS;
     }
-    return JSON.parse(data);
+    const parsed: EligibleStudent[] = JSON.parse(data);
+    // If local cache has fewer students than the official master list, auto-upgrade to the latest 464 students
+    if (!Array.isArray(parsed) || parsed.length < INITIAL_ELIGIBLE_STUDENTS.length) {
+      localStorage.setItem(STORAGE_KEYS.ELIGIBLE_STUDENTS, JSON.stringify(INITIAL_ELIGIBLE_STUDENTS));
+      return INITIAL_ELIGIBLE_STUDENTS;
+    }
+    return parsed;
   } catch (err) {
     console.error('Failed to load eligible students:', err);
     return INITIAL_ELIGIBLE_STUDENTS;
@@ -34,8 +40,12 @@ export function saveEligibleStudents(students: EligibleStudent[]): void {
 // Find eligible student by roll
 export function findEligibleStudentByRoll(roll: string): EligibleStudent | undefined {
   const trimmed = roll.trim();
+  if (!trimmed) return undefined;
   const students = getEligibleStudents();
-  return students.find((s) => s.sscRoll.trim() === trimmed);
+  return students.find((s) => {
+    const sRoll = s.sscRoll.trim();
+    return sRoll === trimmed || sRoll.replace(/^0+/, '') === trimmed.replace(/^0+/, '');
+  });
 }
 
 // Manage Applications

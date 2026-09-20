@@ -1,4 +1,5 @@
 import { CollegeInfo, EligibleStudent, StudyGroup } from '../types';
+import { OFFICIAL_ELIGIBLE_STUDENTS } from './officialStudents';
 
 export const COLLEGE_INFO: CollegeInfo = {
   nameBn: 'কসবা মহিলা ডিগ্রি কলেজ',
@@ -24,6 +25,7 @@ export const COMPULSORY_SUBJECTS = [
 
 export const EDUCATION_BOARDS = [
   'COMILLA',
+  'CUMILLA',
   'DHAKA',
   'CHITTAGONG',
   'RAJSHAHI',
@@ -34,64 +36,10 @@ export const EDUCATION_BOARDS = [
   'MYMENSINGH',
   'MADRASAH',
   'TECHNICAL',
+  'BTEB',
 ];
 
 export const PASSING_YEARS = ['2026', '2025', '2024'];
 
-// Sample initial data so that testing is immediately seamless
-export const INITIAL_ELIGIBLE_STUDENTS: EligibleStudent[] = [
-  {
-    id: 'kmdc-el-001',
-    studentName: 'NUSRAT JAHAN',
-    sscRoll: '102145',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'HUMANITIES',
-    academicYear: '2026-2027',
-  },
-  {
-    id: 'kmdc-el-002',
-    studentName: 'SUMAIYA AKTER MIM',
-    sscRoll: '102146',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'HUMANITIES',
-    academicYear: '2026-2027',
-  },
-  {
-    id: 'kmdc-el-003',
-    studentName: 'JANNATUL FERDOUS',
-    sscRoll: '205412',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'SCIENCE',
-    academicYear: '2026-2027',
-  },
-  {
-    id: 'kmdc-el-004',
-    studentName: 'SADIA AFRIN',
-    sscRoll: '205413',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'SCIENCE',
-    academicYear: '2026-2027',
-  },
-  {
-    id: 'kmdc-el-005',
-    studentName: 'FATEMA TUZ ZOHRA',
-    sscRoll: '308921',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'BUSINESS STUDIES',
-    academicYear: '2026-2027',
-  },
-  {
-    id: 'kmdc-el-006',
-    studentName: 'MARZIA SULTANA',
-    sscRoll: '308922',
-    sscBoard: 'COMILLA',
-    passingYear: '2026',
-    group: 'BUSINESS STUDIES',
-    academicYear: '2026-2027',
-  },
-];
+// Official list of eligible students uploaded by the college administration (464 students)
+export const INITIAL_ELIGIBLE_STUDENTS: EligibleStudent[] = OFFICIAL_ELIGIBLE_STUDENTS;
